@@ -1,10 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using TechJobs6Persistent.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connectionString = "server=localhost; user=techjobs; password=techjobs; database=techjobs";
+var serverVersion = new MySqlServerVersion(new Version(8, 0, 32));
+
+builder.Services.AddDbContext<JobDbContext>(DbContextOptions => DbContextOptions.UseMySql(connectionString, serverVersion));
 
 var app = builder.Build();
 
