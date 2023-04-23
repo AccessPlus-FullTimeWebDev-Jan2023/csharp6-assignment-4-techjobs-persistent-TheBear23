@@ -13,6 +13,8 @@ namespace TechJobs6Persistent.Models
 
         public ICollection<Job>? Jobs { get; set; }
 
+        public List<JobSkill> JobSkills { get; set; }
+
         public Skill(string name)
         {
             SkillName = name;
