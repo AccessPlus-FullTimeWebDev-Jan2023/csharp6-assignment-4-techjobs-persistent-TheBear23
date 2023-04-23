@@ -13,29 +13,56 @@ using TechJobs6Persistent.ViewModels;
 namespace TechJobs6Persistent.Controllers
 {
     public class EmployerController : Controller
-    { 
+    {
+        private readonly JobDbContext _context;
+
+        public EmployerController(JobDbContext context)
+        {
+            _context = context; 
+        }
+
         // GET: /<controller>/
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var employers = _context.Employers.ToList();
+            return View(employers);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            var addEmployerViewModel = new AddEmployerViewModel();
+            return View(addEmployerViewModel);
         }
 
         [HttpPost]
         public IActionResult ProcessCreateEmployerForm()
         {
-            return View();
+            AddEmployerViewModel addEmployerViewModel = new AddEmployerViewModel
+            {
+                Name = Request.Form["Name"],
+                Location = Request.Form["Location"]
+            };
+
+            if (ModelState.IsValid)
+            {
+                Employer newEmployer = new Employer
+                {
+                    Name = addEmployerViewModel.Name,
+                    Location = addEmployerViewModel.Location
+                };
+                _context.Employers.Add(newEmployer);
+                _context.SaveChanges();
+                return Redirect("Index");
+            }
+            return View("Create", addEmployerViewModel);
         }
 
         public IActionResult About(int id)
         {
-            return View();
+            var employer = _context.Employers.Find(id);
+            return View(employer);
         }
 
     }
