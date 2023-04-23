@@ -14,7 +14,13 @@ namespace TechJobs6Persistent.ViewModels
         [Display(Name = "Employer")]
         public int EmployerId { get; set; }
 
-        public IEnumerable<SelectListItem> Employers { get; set; }
-
+        public List<SelectListItem> Employers { get; set; } = new List<SelectListItem>();
     }
 }
+
+//public IEnumerable<SelectListItem> Employers { get; set; }
+
+   
+
+
+

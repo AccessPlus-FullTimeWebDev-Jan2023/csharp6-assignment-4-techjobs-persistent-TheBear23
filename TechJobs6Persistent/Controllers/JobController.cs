@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TechJobs6Persistent.Data;
 using TechJobs6Persistent.Models;
@@ -53,10 +54,10 @@ namespace TechJobs6Persistent.Controllers
                 return Redirect("/Jobs");
             }
 
-            List<Employer> employers = context.Employers.ToList();
-            addJobViewModel = new AddJobViewModel(employers);
-            return View(addJobViewModel);
-            
+             List<Employer> employers = context.Employers.ToList();
+             addJobViewModel = new AddJobViewModel(employers);
+             return View(addJobViewModel);
+
         }
 
         public IActionResult Delete()
