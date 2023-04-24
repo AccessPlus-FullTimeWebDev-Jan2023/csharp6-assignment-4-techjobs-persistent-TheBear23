@@ -1,15 +1,53 @@
 ﻿@using TechJobs6Persistent.ViewModels
 
+@*This code block declares three variables: employers, name, and employerId.
 
+The first variable, employers, creates a new SelectList object using the Model.Employers property, which is a 
+list of employer objects. The "Id" and "Name" strings indicate which properties of the employer objects should be used 
+as the value and text for each item in the select list.
+
+The next two variables, name and employerId, use the ViewData.TemplateInfo.GetFullHtmlFieldName method to get the 
+full HTML field name for the Name and EmployerId properties of the view model. 
+This is necessary because the asp-for attribute in the form later on needs to reference the 
+full HTML field name for model binding.*@
+
+@{
+    var employers = new SelectList(Model.Employers, "Id", "Name");
+    var name = ViewData.TemplateInfo.GetFullHtmlFieldName("Name");
+    var employerId = ViewData.TemplateInfo.GetFullHtmlFieldName("EmployerId");
+}
 <h1>Add Job</h1>
 
 <form asp-controller="Job" asp-action="Add" method="post">
     <div class="form-group">
         <label>Name</label>
-        <input class="form-control" />
-        <span></span>
+        <input class="form-control" type="text" id="@name" name="@name" value="@Model.Name" />
+        <span asp-validation-for="@name" class="text-danger"></span>
     </div>
-    <br />
+    
+    <div class="form-group">
+        <label>Employer</label>
+        <select class="form-control" id="@employerId" name="@employerId" asp-items="@employers">
+            <option value="">-- Select an Employer --</option>
+        </select>
+        <a asp-controller="Employer" asp-action="Add" class="btn btn-link">Add New Employer</a>
+    </div>
 
     <input type="submit" value="Add Job" />
 </form>
+
+@*This code block contains an HTML form for adding a job. The asp-controller and asp-action attributes indicate that the 
+form should be submitted to the Add action of the Job controller.
+The label elements provide a label for each form field, job name and the employer.
+
+For the job name field, the input element has a class of "form-control" for styling purposes. 
+The id and name attributes are set to the name variable defined, and the value attribute is set to @Model.Name, 
+which binds the field to the Name property of the view model.
+
+The asp-validation-for attribute is set to @name, which refers to the same name variable as the id and name attributes. 
+This attribute is used to display validation error messages if the user enters an invalid value for the job name.
+
+For the employer field, the select element has a class of "form-control" for styling purposes. The id and name attributes 
+are set to the employerId variable defined. The asp-items attribute is set to the employers variable defined, 
+which populates the select list with the list of employers.*@
+  

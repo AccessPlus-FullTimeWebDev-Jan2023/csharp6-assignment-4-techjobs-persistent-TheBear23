@@ -26,21 +26,13 @@ namespace TechJobs6Persistent.Data
             .HasOne(p => p.Employer)
             .WithMany(b => b.Jobs);
             //set up your connection for many to many (skills to jobs)
-            base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<JobSkill>()
-                .HasKey(js => new { js.JobId, js.SkillId });
-
-            modelBuilder.Entity<JobSkill>()
-                .HasOne(js => js.Job)
-                .WithMany(j => j.JobSkills)
-                .HasForeignKey(js => js.JobId);
-
-            modelBuilder.Entity<JobSkill>()
-                .HasOne(js => js.Skill)
-                .WithMany(s => s.JobSkills)
-                .HasForeignKey(js => js.SkillId);
+            modelBuilder.Entity<Job>()
+            .HasMany(j => j.Skills)
+            .WithMany(s => s.Jobs)
+            .UsingEntity(j => j.ToTable("JobSkill"));
         }
 
     }
 }
+

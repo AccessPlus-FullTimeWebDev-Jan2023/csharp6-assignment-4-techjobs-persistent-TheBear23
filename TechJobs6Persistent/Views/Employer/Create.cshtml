@@ -25,10 +25,3 @@
 
 </form>
 
-<div class="form-group">
-    <label>Employer</label>
-    <select asp-for="EmployerId" asp-items="@Model.Employers">
-        <option value="">-- Select an Employer --</option>
-    </select>
-    <a asp-controller="Employer" asp-action="Add" class="btn btn-link">Add New Employer</a>
-</div>
