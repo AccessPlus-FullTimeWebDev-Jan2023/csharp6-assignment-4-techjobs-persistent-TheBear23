@@ -12,7 +12,7 @@ namespace TechJobs6Persistent.ViewModels
         [Required(ErrorMessage = "Employer is required.")]
         public int EmployerId { get; set; }
 
-        public List<SelectListItem> Employers { get; set; }
+        public List<SelectListItem>? Employers { get; set; }
 
         public AddJobViewModel() { }
 

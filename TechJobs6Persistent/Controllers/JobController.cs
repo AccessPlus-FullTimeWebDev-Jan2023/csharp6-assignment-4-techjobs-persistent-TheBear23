@@ -51,11 +51,9 @@ namespace TechJobs6Persistent.Controllers
                 context.Jobs.Add(newJob);
                 context.SaveChanges();
 
-                return Redirect("/Jobs");
+                return Redirect("/Job");
             }
 
-             List<Employer> employers = context.Employers.ToList();
-             addJobViewModel = new AddJobViewModel(employers);
              return View(addJobViewModel);
 
         }
@@ -78,7 +76,7 @@ namespace TechJobs6Persistent.Controllers
 
             context.SaveChanges();
 
-            return Redirect("/Jobs");
+            return Redirect("/Job");
         }
 
         public IActionResult Detail(int id)
